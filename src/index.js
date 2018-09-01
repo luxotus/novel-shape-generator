@@ -1,4 +1,7 @@
-import * as THREE from 'three';
+// import * as THREE from 'three';
+/* global THREE */
+
+console.log('testing');
 
 // Creating the scene
 const scene = new THREE.Scene();
