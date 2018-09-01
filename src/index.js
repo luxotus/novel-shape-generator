@@ -1,4 +1,4 @@
-/* global THREE */
+import * as THREE from 'three';
 
 // Creating the scene
 const scene = new THREE.Scene();
