@@ -15,7 +15,15 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // Creating a cube
-const model = new ShapeCreator('cylinder', [1, 1, 3, 10], { color: 0x00ffff });
+const details = {
+  type: 'dodecahedron',
+  geometry: [2, 2, 2],
+  material: {
+    color: 0x00ffff,
+  },
+  radius: 1,
+};
+const model = new ShapeCreator(details);
 scene.add(model.shapes[0].mesh);
 
 camera.position.z = 5;
