@@ -10,6 +10,11 @@ export default class ShapeCreator {
     this.createShape();
   }
 
+  /**
+   * Certain shapes only have radius for sizing
+   * @param {string} type
+   * @returns {boolean}
+   */
   static isRadiusOnly(type) {
     const radiusOnlyShapes = [
       'Dodecahedron',
@@ -21,7 +26,12 @@ export default class ShapeCreator {
     return radiusOnlyShapes.includes(type);
   }
 
-  static geometryArgsLength(type) {
+  /**
+   * Geometry args count for shape sizing
+   * @param {string} type
+   * @returns {int}
+   */
+  static geometrySideLengths(type) {
     const shapeWithSize = {
       Box: 3,
       Circle: 2,
@@ -37,10 +47,18 @@ export default class ShapeCreator {
     return shapeWithSize[type];
   }
 
+  /**
+   * Check for basic supported shapes
+   * @param {string} type
+   * @returns {boolean}
+   */
   static isGeometryOnly(type) {
-    return typeof this.geometryArgsLength(type) !== 'undefined';
+    return typeof this.geometrySideLengths(type) !== 'undefined';
   }
 
+  /**
+   * Creates a shape and adds it to the list of shapes
+   */
   createShape() {
     const shape = {
       material: new THREE.MeshLambertMaterial(this.details.material),
