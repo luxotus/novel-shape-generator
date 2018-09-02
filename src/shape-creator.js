@@ -48,6 +48,26 @@ export default class ShapeCreator {
   }
 
   /**
+   * Creates an array of a given length with values in a given range
+   * @param {array} currentArr
+   * @param {int} fillSize
+   * @param {int} max
+   * @param {int} min
+   * @returns {array}
+   */
+  static randomFillArray(currentArr, fillSize, max, min) {
+    let arr = currentArr.length > 0 ? currentArr : [];
+
+    if (fillSize > currentArr.length) {
+      const arrLen = fillSize - currentArr.length;
+      const preFilledArray = Array(arrLen).fill(0).map(() => Math.floor(Math.random() * max) + min);
+      arr = arr.concat(preFilledArray);
+    }
+
+    return arr;
+  }
+
+  /**
    * Check for basic supported shapes
    * @param {string} type
    * @returns {boolean}
