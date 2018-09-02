@@ -21,20 +21,24 @@ export default class ShapeCreator {
     return radiusOnlyShapes.includes(type);
   }
 
-  static isGeometryOnly(type) {
-    const geometryOnlyShapes = [
-      'Box',
-      'Circle',
-      'Cone',
-      'Cylinder',
-      'Plane',
-      'Ring',
-      'Sphere',
-      'Torus',
-      'TorusKnot',
-    ];
+  static geometryArgsLength(type) {
+    const shapeWithSize = {
+      Box: 3,
+      Circle: 2,
+      Cone: 3,
+      Cylinder: 4,
+      Plane: 3,
+      Ring: 3,
+      Sphere: 3,
+      Torus: 4,
+      TorusKnot: 4,
+    };
 
-    return geometryOnlyShapes.includes(type);
+    return shapeWithSize[type];
+  }
+
+  static isGeometryOnly(type) {
+    return typeof this.geometryArgsLength(type) !== 'undefined';
   }
 
   createShape() {
