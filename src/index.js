@@ -2,33 +2,14 @@
 /* global THREE */
 import ShapeCreator from './shape-creator';
 
-// Creating the scene
 const scene = new THREE.Scene();
-
-// Setting up clock
 const clock = new THREE.Clock();
-
-// Setup Camera
-const fieldOfView = 45;
 const aspectRatio = window.innerWidth / window.innerHeight;
-const near = 0.1;
-const far = 10000;
-const camera = new THREE.PerspectiveCamera(fieldOfView, aspectRatio, near, far);
-camera.position.y = 160;
-camera.position.z = 400;
-scene.add(camera);
-
-// Lighting
-const pointLight = new THREE.PointLight(0xffffff);
-pointLight.position.set(0, 300, 200);
-scene.add(pointLight);
-
+const camera = new THREE.PerspectiveCamera(45, aspectRatio, 0.1, 10000);
+const pointLightTop = new THREE.PointLight(0x999999);
+const ambientLight = new THREE.AmbientLight(0x777777);
 const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
-
-// Creating a cube
-const details = {
+const shapeDetails = {
   type: 'Box',
   geometry: [100, 100, 100],
   material: {
@@ -36,7 +17,23 @@ const details = {
   },
   radius: 100,
 };
-const model = new ShapeCreator(details);
+const model = new ShapeCreator(shapeDetails); // Creating a shape
+
+// Camera
+camera.position.y = 160;
+camera.position.z = 400;
+scene.add(camera);
+
+// Lighting
+pointLightTop.position.set(0, 300, 200);
+scene.add(pointLightTop);
+scene.add(ambientLight);
+
+// Rendering
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// Model
 scene.add(model.shapes[0].mesh);
 camera.lookAt(model.shapes[0].mesh.position);
 
