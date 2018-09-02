@@ -13,9 +13,28 @@ export default class ShapeCreator {
   static isRadiusOnly(type) {
     const radiusOnlyShapes = [
       'Dodecahedron',
+      'Icosahedron',
+      'Octahedron',
+      'Tetrahedron',
     ];
 
     return radiusOnlyShapes.includes(type);
+  }
+
+  static isGeometryOnly(type) {
+    const geometryOnlyShapes = [
+      'Box',
+      'Circle',
+      'Cone',
+      'Cylinder',
+      'Plane',
+      'Ring',
+      'Sphere',
+      'Torus',
+      'TorusKnot',
+    ];
+
+    return geometryOnlyShapes.includes(type);
   }
 
   createShape() {
@@ -23,12 +42,12 @@ export default class ShapeCreator {
       material: new THREE.MeshLambertMaterial(this.details.material),
     };
 
-    if (typeof THREE[`${this.details.type}BufferGeometry`] === 'function') {
-      if (this.constructor.isRadiusOnly(this.details.type)) {
-        shape.geometry = new THREE[`${this.details.type}BufferGeometry`](this.details.radius);
-      } else {
-        shape.geometry = new THREE[`${this.details.type}BufferGeometry`](...this.details.geometry);
-      }
+    if (this.constructor.isRadiusOnly(this.details.type)) {
+      shape.geometry = new THREE[`${this.details.type}BufferGeometry`](this.details.radius);
+    }
+
+    if (this.constructor.isGeometryOnly(this.details.type)) {
+      shape.geometry = new THREE[`${this.details.type}BufferGeometry`](...this.details.geometry);
     }
 
     if (typeof shape.geometry !== 'undefined') {

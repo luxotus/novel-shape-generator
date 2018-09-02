@@ -34,7 +34,7 @@ const details = {
   material: {
     color: 0x00ffff,
   },
-  radius: 2,
+  radius: 100,
 };
 const model = new ShapeCreator(details);
 scene.add(model.shapes[0].mesh);
@@ -43,6 +43,7 @@ camera.lookAt(model.shapes[0].mesh.position);
 // Rendering the scene
 function render() {
   requestAnimationFrame(render);
+  model.shapes[0].mesh.rotation.x -= 0.01;
   model.shapes[0].mesh.rotation.y -= clock.getDelta();
   renderer.render(scene, camera);
 }
