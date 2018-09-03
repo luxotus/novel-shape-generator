@@ -7,7 +7,37 @@ export default class ShapeCreator {
   constructor(details, shapes) {
     this.details = details;
     this.shapes = typeof shapes !== 'undefined' ? shapes : [];
+    this.typeExits = (this.constructor.isRadiusOnly(this.details.type)
+      || this.isGeometryOnly(this.details.type));
+
+    if (this.details.type === '' || typeof this.details.type === 'undefined' || !this.typeExits) {
+      this.details.type = this.constructor.randomShapeType();
+    }
+
     this.createShape();
+  }
+
+  /**
+   * Picks a random shape type
+   * @returns {str}
+   */
+  static randomShapeType() {
+    const knownTypes = [
+      'Dodecahedron',
+      'Icosahedron',
+      'Octahedron',
+      'Tetrahedron',
+      'Box',
+      'Circle',
+      'Cone',
+      'Cylinder',
+      'Plane',
+      'Ring',
+      'Sphere',
+      'Torus',
+      'TorusKnot',
+    ];
+    return knownTypes[Math.floor((Math.random() * knownTypes.length))];
   }
 
   /**
@@ -71,8 +101,8 @@ export default class ShapeCreator {
    * @param {string} type
    * @returns {boolean}
    */
-  static isGeometryOnly(type) {
-    return typeof this.geometrySideLengths(type) !== 'undefined';
+  isGeometryOnly(type) {
+    return typeof this.constructor.geometrySideLengths(type) !== 'undefined';
   }
 
   /**
@@ -87,7 +117,7 @@ export default class ShapeCreator {
       shape.geometry = new THREE[`${this.details.type}BufferGeometry`](this.details.radius);
     }
 
-    if (this.constructor.isGeometryOnly(this.details.type)) {
+    if (this.isGeometryOnly(this.details.type)) {
       const sideLengths = this.constructor.geometrySideLengths(this.details.type);
       const geometry = (sideLengths !== this.details.geometry.length)
         ? this.fillGeometry(this.details.size.max, this.details.size.min) : this.details.geometry;

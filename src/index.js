@@ -10,7 +10,7 @@ const pointLightTop = new THREE.PointLight(0x999999);
 const ambientLight = new THREE.AmbientLight(0x555555);
 const renderer = new THREE.WebGLRenderer();
 const shapeDetails = {
-  type: 'TorusKnot',
+  type: '',
   geometry: [],
   material: {
     color: 0x00ffff,
