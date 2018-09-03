@@ -7,13 +7,17 @@ const clock = new THREE.Clock();
 const aspectRatio = window.innerWidth / window.innerHeight;
 const camera = new THREE.PerspectiveCamera(45, aspectRatio, 0.1, 10000);
 const pointLightTop = new THREE.PointLight(0x999999);
-const ambientLight = new THREE.AmbientLight(0x777777);
+const ambientLight = new THREE.AmbientLight(0x555555);
 const renderer = new THREE.WebGLRenderer();
 const shapeDetails = {
-  type: 'Box',
-  geometry: [100, 100, 100],
+  type: 'TorusKnot',
+  geometry: [],
   material: {
     color: 0x00ffff,
+  },
+  size: {
+    max: 100,
+    min: 10,
   },
   radius: 100,
 };

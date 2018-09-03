@@ -49,22 +49,21 @@ export default class ShapeCreator {
 
   /**
    * Creates an array of a given length with values in a given range
-   * @param {array} currentArr
-   * @param {int} fillSize
    * @param {int} max
    * @param {int} min
    * @returns {array}
    */
-  static randomFillArray(currentArr, fillSize, max, min) {
-    let arr = currentArr.length > 0 ? currentArr : [];
+  fillGeometry(max, min) {
+    const fillSize = this.constructor.geometrySideLengths(this.details.type);
+    let geometry = this.details.geometry.length > 0 ? this.details.geometry : [];
 
-    if (fillSize > currentArr.length) {
-      const arrLen = fillSize - currentArr.length;
-      const preFilledArray = Array(arrLen).fill(0).map(() => Math.floor(Math.random() * max) + min);
-      arr = arr.concat(preFilledArray);
+    if (fillSize > this.details.geometry.length) {
+      const geoLen = fillSize - this.details.geometry.length;
+      const arr = Array(geoLen).fill(0).map(() => Math.floor(Math.random() * (max - min)) + min);
+      geometry = geometry.concat(arr);
     }
 
-    return arr;
+    return geometry;
   }
 
   /**
@@ -89,7 +88,10 @@ export default class ShapeCreator {
     }
 
     if (this.constructor.isGeometryOnly(this.details.type)) {
-      shape.geometry = new THREE[`${this.details.type}BufferGeometry`](...this.details.geometry);
+      const sideLengths = this.constructor.geometrySideLengths(this.details.type);
+      const geometry = (sideLengths !== this.details.geometry.length)
+        ? this.fillGeometry(this.details.size.max, this.details.size.min) : this.details.geometry;
+      shape.geometry = new THREE[`${this.details.type}BufferGeometry`](...geometry);
     }
 
     if (typeof shape.geometry !== 'undefined') {
