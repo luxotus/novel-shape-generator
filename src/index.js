@@ -1,6 +1,7 @@
 // import * as THREE from 'three';
 /* global THREE */
 import ShapeCreator from './shape-creator';
+import MaterialCreator from './material-creator';
 
 const scene = new THREE.Scene();
 const clock = new THREE.Clock();
@@ -9,18 +10,18 @@ const camera = new THREE.PerspectiveCamera(45, aspectRatio, 0.1, 10000);
 const pointLightTop = new THREE.PointLight(0x999999);
 const ambientLight = new THREE.AmbientLight(0x555555);
 const renderer = new THREE.WebGLRenderer();
+const materialCreator = new MaterialCreator({ color: 0x00ffff });
 const shapeDetails = {
   type: '',
   geometry: [],
-  material: {
-    color: 0x00ffff,
-  },
+  material: {},
   size: {
     max: 100,
     min: 10,
   },
   radius: 100,
 };
+shapeDetails.material = materialCreator.material;
 const model = new ShapeCreator(shapeDetails); // Creating a shape
 
 // Camera

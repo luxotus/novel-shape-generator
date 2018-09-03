@@ -10,7 +10,7 @@ export default class ShapeCreator {
     this.typeExits = (this.constructor.isRadiusOnly(this.details.type)
       || this.isGeometryOnly(this.details.type));
 
-    if (this.details.type === '' || typeof this.details.type === 'undefined' || !this.typeExits) {
+    if (!this.typeExits) {
       this.details.type = this.constructor.randomShapeType();
     }
 
