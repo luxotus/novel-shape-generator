@@ -10,11 +10,10 @@ const camera = new THREE.PerspectiveCamera(45, aspectRatio, 0.1, 10000);
 const pointLightTop = new THREE.PointLight(0x999999);
 const ambientLight = new THREE.AmbientLight(0x555555);
 const renderer = new THREE.WebGLRenderer();
-const materialCreator = new MaterialCreator(true, { color: 0x00ffff });
 const shapeDetails = {
   type: '',
   geometry: [],
-  material: materialCreator.material,
+  materialCreator: new MaterialCreator(true, { color: 0x00ffff }),
   size: {
     max: 100,
     min: 10,

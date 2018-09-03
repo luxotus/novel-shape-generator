@@ -1,3 +1,5 @@
+/* global THREE */
+
 export default class MaterialCreator {
   constructor(randomize, material) {
     this.material = {};
@@ -10,6 +12,22 @@ export default class MaterialCreator {
 
     if (randomize) {
       this.randomizeColor();
+    }
+  }
+
+  static isFlat(type) {
+    const flat = [
+      'Plane',
+      'Circle',
+      'Ring',
+    ];
+
+    return flat.includes(type);
+  }
+
+  updateFlatShape(type) {
+    if (this.constructor.isFlat(type)) {
+      this.material.side = THREE.DoubleSide;
     }
   }
 

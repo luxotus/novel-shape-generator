@@ -109,9 +109,10 @@ export default class ShapeCreator {
    * Creates a shape and adds it to the list of shapes
    */
   createShape() {
-    const shape = {
-      material: new THREE.MeshLambertMaterial(this.details.material),
-    };
+    const shape = {};
+
+    this.details.materialCreator.updateFlatShape(this.details.type);
+    shape.material = new THREE.MeshLambertMaterial(this.details.materialCreator.material);
 
     if (this.constructor.isRadiusOnly(this.details.type)) {
       shape.geometry = new THREE[`${this.details.type}BufferGeometry`](this.details.radius);
