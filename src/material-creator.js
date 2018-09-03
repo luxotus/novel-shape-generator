@@ -1,5 +1,5 @@
 export default class MaterialCreator {
-  constructor(material) {
+  constructor(randomize, material) {
     this.material = {};
 
     Object.keys(material).forEach((value) => {
@@ -8,7 +8,9 @@ export default class MaterialCreator {
       }
     });
 
-    console.log(this.material);
+    if (randomize) {
+      this.randomizeColor();
+    }
   }
 
   static supportedMaterialProps(prop) {
@@ -17,5 +19,9 @@ export default class MaterialCreator {
     ];
 
     return supportedProps.includes(prop);
+  }
+
+  randomizeColor() {
+    this.material.color = (Math.random() * 0xFFFFFF << 0);
   }
 }
