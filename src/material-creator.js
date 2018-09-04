@@ -19,8 +19,21 @@ export default class MaterialCreator {
   }
 
   get meshMaterial() {
-    console.log(this.type);
     return new THREE[`Mesh${this.type}Material`](this.material);
+  }
+
+  static materialTypes() {
+    const knownTypes = [
+      'Basic',
+      // 'Depth',
+      'Lambert',
+      'Normal',
+      'Phong',
+      'Physical',
+      'Standard',
+    ];
+
+    return knownTypes;
   }
 
   static isFlat(type) {
@@ -42,16 +55,7 @@ export default class MaterialCreator {
   }
 
   static hasKnownType(type) {
-    const knownTypes = [
-      'Basic',
-      // 'Depth',
-      'Lambert',
-      'Normal',
-      'Phong',
-      'Physical',
-      'Standard',
-    ];
-    return knownTypes.includes(type);
+    return this.constructor.materialTypes().includes(type);
   }
 
   updateFlatShape(type) {
@@ -65,15 +69,7 @@ export default class MaterialCreator {
   }
 
   randomizeType() {
-    const types = [
-      'Basic',
-      // 'Depth',
-      'Lambert',
-      'Normal',
-      'Phong',
-      'Physical',
-      'Standard',
-    ];
-    this.type = types[Math.floor((Math.random() * types.length))];
+    const knownTypes = this.constructor.materialTypes();
+    this.type = knownTypes[Math.floor((Math.random() * knownTypes.length))];
   }
 }
