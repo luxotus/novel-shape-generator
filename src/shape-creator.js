@@ -19,7 +19,7 @@ export default class ShapeCreator {
 
   /**
    * Picks a random shape type
-   * @returns {str}
+   * @returns {string}
    */
   static randomShapeType() {
     const knownTypes = [
