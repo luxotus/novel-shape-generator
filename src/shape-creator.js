@@ -112,7 +112,8 @@ export default class ShapeCreator {
     const shape = {};
 
     this.details.materialCreator.updateFlatShape(this.details.type);
-    shape.material = new THREE.MeshLambertMaterial(this.details.materialCreator.material);
+    shape.material = this.details.materialCreator.meshMaterial;
+    // shape.material = new THREE.MeshLambertMaterial(this.details.materialCreator.material);
 
     if (this.constructor.isRadiusOnly(this.details.type)) {
       shape.geometry = new THREE[`${this.details.type}BufferGeometry`](this.details.radius);

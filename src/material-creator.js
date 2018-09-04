@@ -1,7 +1,7 @@
 /* global THREE */
 
 export default class MaterialCreator {
-  constructor(randomize, material) {
+  constructor(randomize, material, type) {
     this.material = {};
 
     Object.keys(material).forEach((value) => {
@@ -12,7 +12,15 @@ export default class MaterialCreator {
 
     if (randomize) {
       this.randomizeColor();
+      this.randomizeType();
+    } else if (!this.constructor.hasKnownType(type)) {
+      this.randomizeType();
     }
+  }
+
+  get meshMaterial() {
+    console.log(this.type);
+    return new THREE[`Mesh${this.type}Material`](this.material);
   }
 
   static isFlat(type) {
@@ -25,12 +33,6 @@ export default class MaterialCreator {
     return flat.includes(type);
   }
 
-  updateFlatShape(type) {
-    if (this.constructor.isFlat(type)) {
-      this.material.side = THREE.DoubleSide;
-    }
-  }
-
   static supportedMaterialProps(prop) {
     const supportedProps = [
       'color',
@@ -39,7 +41,39 @@ export default class MaterialCreator {
     return supportedProps.includes(prop);
   }
 
+  static hasKnownType(type) {
+    const knownTypes = [
+      'Basic',
+      // 'Depth',
+      'Lambert',
+      'Normal',
+      'Phong',
+      'Physical',
+      'Standard',
+    ];
+    return knownTypes.includes(type);
+  }
+
+  updateFlatShape(type) {
+    if (this.constructor.isFlat(type)) {
+      this.material.side = THREE.DoubleSide;
+    }
+  }
+
   randomizeColor() {
     this.material.color = (Math.random() * 0xFFFFFF << 0);
+  }
+
+  randomizeType() {
+    const types = [
+      'Basic',
+      // 'Depth',
+      'Lambert',
+      'Normal',
+      'Phong',
+      'Physical',
+      'Standard',
+    ];
+    this.type = types[Math.floor((Math.random() * types.length))];
   }
 }
