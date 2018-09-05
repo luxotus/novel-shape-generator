@@ -1,7 +1,7 @@
 /* global THREE */
 
 /**
- * Helps create materials. Also provides randomized materials
+ * Helps create materials. Also provides randomized materials.
  */
 export default class MaterialCreator {
   constructor(randomize, material, type) {

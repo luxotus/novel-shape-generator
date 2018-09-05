@@ -1,7 +1,7 @@
 /* global THREE */
 
 /**
- * Helps create basic shapes. Without any config it will create a random shape
+ * Helps create basic shapes. Without any config it will create a random shape.
  */
 export default class ShapeCreator {
   constructor(details, shapes) {
