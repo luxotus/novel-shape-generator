@@ -2,7 +2,6 @@
 /* global THREE */
 import ShapeCreator from './shape-creator';
 import MaterialCreator from './material-creator';
-// import AnimationCreator from './animation-creator';
 
 const scene = new THREE.Scene();
 const clock = new THREE.Clock();
@@ -41,14 +40,9 @@ document.body.appendChild(renderer.domElement);
 scene.add(model.shapes[0].mesh);
 camera.lookAt(model.shapes[0].mesh.position);
 
-// const animationCreator = new AnimationCreator(renderer, scene, camera, model.shapes[0].mesh, {});
-// animationCreator.render();
-
 // Rendering the scene
 function render() {
-  // console.log(render);
   requestAnimationFrame(render);
-  // animationCreator.randomAnimation();
   model.shapes[0].mesh.rotation.x -= 0.02;
   model.shapes[0].mesh.rotation.y -= clock.getDelta();
   model.shapes[0].mesh.rotation.z += 0.02;
