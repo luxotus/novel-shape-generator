@@ -68,6 +68,13 @@ export default class MaterialCreator {
     return supportedProps.includes(prop);
   }
 
+  addWireFrame() {
+    this.material.wireframe = true;
+    this.material.wireframeLineWidth = 5;
+    this.material.wireframeLineJoin = 'round';
+    this.material.wireframeLineCap = 'round';
+  }
+
   /**
    * Check to see if material type is supported
    * @param {string} type
