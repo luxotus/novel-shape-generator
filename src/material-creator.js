@@ -6,6 +6,15 @@
 export default class MaterialCreator {
   constructor(randomize, material, type) {
     this.material = {};
+    this.type = type;
+    this.knownTypes = [
+      'Basic',
+      'Lambert',
+      'Normal',
+      'Phong',
+      'Physical',
+      'Standard',
+    ];
 
     Object.keys(material).forEach((value) => {
       if (this.constructor.supportedMaterialProps(value)) {
@@ -13,10 +22,14 @@ export default class MaterialCreator {
       }
     });
 
+    console.log(this.material);
+
     if (randomize) {
+      console.log('a');
       this.randomizeColor();
       this.randomizeType();
-    } else if (!this.constructor.hasKnownType(type)) {
+    } else if (!this.hasKnownType(type)) {
+      console.log('b');
       this.randomizeType();
     }
   }
@@ -25,25 +38,8 @@ export default class MaterialCreator {
    * Get finished material for rendering
    */
   get meshMaterial() {
+    console.log(this.type);
     return new THREE[`Mesh${this.type}Material`](this.material);
-  }
-
-  /**
-   * Keeps known types in 1 location
-   * @returns {[...string]}
-   */
-  static materialTypes() {
-    const knownTypes = [
-      'Basic',
-      // 'Depth',
-      'Lambert',
-      'Normal',
-      'Phong',
-      'Physical',
-      'Standard',
-    ];
-
-    return knownTypes;
   }
 
   /**
@@ -69,6 +65,9 @@ export default class MaterialCreator {
   static supportedMaterialProps(prop) {
     const supportedProps = [
       'color',
+      'transparent ',
+      'opacity',
+      'uniforms',
     ];
 
     return supportedProps.includes(prop);
@@ -79,8 +78,8 @@ export default class MaterialCreator {
    * @param {string} type
    * @returns {boolean}
    */
-  static hasKnownType(type) {
-    return this.constructor.materialTypes().includes(type);
+  hasKnownType(type) {
+    return this.knownTypes.includes(type);
   }
 
   /**
@@ -104,7 +103,6 @@ export default class MaterialCreator {
    * Provides a random material type
    */
   randomizeType() {
-    const knownTypes = this.constructor.materialTypes();
-    this.type = knownTypes[Math.floor((Math.random() * knownTypes.length))];
+    this.type = this.knownTypes[Math.floor((Math.random() * this.knownTypes.length))];
   }
 }
