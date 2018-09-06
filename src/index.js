@@ -13,7 +13,7 @@ const renderer = new THREE.WebGLRenderer();
 const shapeDetails = {
   type: '',
   geometry: [],
-  materialCreator: new MaterialCreator(true, { color: 0x00ffff }, 'Basic'),
+  materialCreator: new MaterialCreator(false, { color: 0x00ffff, transparent: true, opacity: 0.2 }, 'Basic'),
   size: {
     max: 100,
     min: 10,

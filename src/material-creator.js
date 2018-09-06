@@ -22,14 +22,10 @@ export default class MaterialCreator {
       }
     });
 
-    console.log(this.material);
-
     if (randomize) {
-      console.log('a');
       this.randomizeColor();
       this.randomizeType();
     } else if (!this.hasKnownType(type)) {
-      console.log('b');
       this.randomizeType();
     }
   }
@@ -38,7 +34,6 @@ export default class MaterialCreator {
    * Get finished material for rendering
    */
   get meshMaterial() {
-    console.log(this.type);
     return new THREE[`Mesh${this.type}Material`](this.material);
   }
 
@@ -65,7 +60,7 @@ export default class MaterialCreator {
   static supportedMaterialProps(prop) {
     const supportedProps = [
       'color',
-      'transparent ',
+      'transparent',
       'opacity',
       'uniforms',
     ];
