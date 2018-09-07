@@ -80,6 +80,11 @@ export default class MaterialCreator {
     this.material.opacity = 0.5;
   }
 
+  addEmissive() {
+    this.material.emissive = 0xFF0000;
+    this.material.emissiveIntensity = 0.2;
+  }
+
   /**
    * Check to see if material type is supported
    * @param {string} type

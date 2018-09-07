@@ -7,8 +7,8 @@ const scene = new THREE.Scene();
 const clock = new THREE.Clock();
 const aspectRatio = window.innerWidth / window.innerHeight;
 const camera = new THREE.PerspectiveCamera(35, aspectRatio, 300, 10000);
-const pointLightTop = new THREE.PointLight(0x999999);
-const ambientLight = new THREE.AmbientLight(0x555555);
+const pointLight = new THREE.PointLight(0xFFFFFF, 0.5);
+const ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.5);
 const renderer = new THREE.WebGLRenderer();
 const shapeDetails = {
   model: {
@@ -17,14 +17,14 @@ const shapeDetails = {
     materialCreator: new MaterialCreator(true, { color: 0x00ffff }, 'Basic'),
     size: {
       max: 100,
-      min: 10,
+      min: 50,
     },
     radius: 100,
   },
   ground: {
     type: 'Plane',
     geometry: [10000, 10000, 100, 100],
-    materialCreator: new MaterialCreator(false, { color: 0x999999 }, 'Basic'),
+    materialCreator: new MaterialCreator(false, { color: 0xF3FFE2 }, 'Lambert'),
   },
 };
 const model = new ShapeCreator(shapeDetails.model).shape; // Creating a shape
@@ -36,8 +36,8 @@ camera.position.z = 400;
 scene.add(camera);
 
 // Lighting
-pointLightTop.position.set(0, 300, 200);
-scene.add(pointLightTop);
+pointLight.position.set(0, 300, 200);
+scene.add(pointLight);
 scene.add(ambientLight);
 
 // Rendering
