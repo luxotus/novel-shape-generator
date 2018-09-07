@@ -28,6 +28,8 @@ export default class MaterialCreator {
     } else if (!this.hasKnownType(type)) {
       this.randomizeType();
     }
+
+    // this.addTexture();
   }
 
   /**
@@ -83,6 +85,10 @@ export default class MaterialCreator {
   addEmissive() {
     this.material.emissive = 0xFF0000;
     this.material.emissiveIntensity = 0.2;
+  }
+
+  addTexture() {
+    this.map = new THREE.TextureLoader().load('./textures/4.jpg');
   }
 
   /**
