@@ -28,8 +28,6 @@ export default class MaterialCreator {
     } else if (!this.hasKnownType(type)) {
       this.randomizeType();
     }
-
-    // this.addTexture();
   }
 
   /**
@@ -65,6 +63,7 @@ export default class MaterialCreator {
       'transparent',
       'opacity',
       'uniforms',
+      'texture',
     ];
 
     return supportedProps.includes(prop);
@@ -88,7 +87,9 @@ export default class MaterialCreator {
   }
 
   addTexture() {
-    this.map = new THREE.TextureLoader().load('./textures/4.jpg');
+    if (typeof this.material.texture !== 'undefined') {
+      this.material.map = new THREE.TextureLoader().load(this.material.texture);
+    }
   }
 
   /**
