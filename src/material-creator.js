@@ -75,6 +75,11 @@ export default class MaterialCreator {
     this.material.wireframeLineCap = 'round';
   }
 
+  addTransparency() {
+    this.material.transparent = true;
+    this.material.opacity = 0.5;
+  }
+
   /**
    * Check to see if material type is supported
    * @param {string} type

@@ -4,9 +4,8 @@
  * Helps create basic shapes. Without any config it will create a random shape.
  */
 export default class ShapeCreator {
-  constructor(details, shapes) {
+  constructor(details) {
     this.details = details;
-    this.shapes = typeof shapes !== 'undefined' ? shapes : [];
     this.typeExits = (this.constructor.isRadiusOnly(this.details.type)
       || this.isGeometryOnly(this.details.type));
 
@@ -67,7 +66,7 @@ export default class ShapeCreator {
       Circle: 2,
       Cone: 3,
       Cylinder: 4,
-      Plane: 3,
+      Plane: 4,
       Ring: 3,
       Sphere: 3,
       Torus: 4,
@@ -113,7 +112,6 @@ export default class ShapeCreator {
 
     this.details.materialCreator.updateFlatShape(this.details.type);
     shape.material = this.details.materialCreator.meshMaterial;
-    // shape.material = new THREE.MeshLambertMaterial(this.details.materialCreator.material);
 
     if (this.constructor.isRadiusOnly(this.details.type)) {
       shape.geometry = new THREE[`${this.details.type}BufferGeometry`](this.details.radius);
@@ -128,7 +126,7 @@ export default class ShapeCreator {
 
     if (typeof shape.geometry !== 'undefined') {
       shape.mesh = new THREE.Mesh(shape.geometry, shape.material);
-      this.shapes.push(shape);
+      this.shape = shape.mesh;
     }
   }
 }
