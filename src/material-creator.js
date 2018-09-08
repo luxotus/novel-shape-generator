@@ -5,7 +5,7 @@
  */
 export default class MaterialCreator {
   constructor(randomize, material, type) {
-    this.material = {};
+    this.material = material;
     this.type = type;
     this.knownTypes = [
       'Basic',
@@ -15,12 +15,6 @@ export default class MaterialCreator {
       'Physical',
       'Standard',
     ];
-
-    Object.keys(material).forEach((value) => {
-      if (this.constructor.supportedMaterialProps(value)) {
-        this.material[value] = material[value];
-      }
-    });
 
     if (randomize) {
       this.randomizeColor();
@@ -50,23 +44,6 @@ export default class MaterialCreator {
     ];
 
     return flat.includes(type);
-  }
-
-  /**
-   * Check to see if material prop is an acceptable parameter
-   * @param {string} prop
-   * @returns {boolean}
-   */
-  static supportedMaterialProps(prop) {
-    const supportedProps = [
-      'color',
-      'transparent',
-      'opacity',
-      'uniforms',
-      'texture',
-    ];
-
-    return supportedProps.includes(prop);
   }
 
   addWireFrame() {
