@@ -69,6 +69,11 @@ export default class MaterialCreator {
     }
   }
 
+  addShine() {
+    this.specular = 0x999999;
+    this.material.shininess = 100;
+  }
+
   /**
    * Check to see if material type is supported
    * @param {string} type
