@@ -75,9 +75,14 @@ export default class MaterialCreator {
     }
   }
 
-  addShine() {
-    this.specular = 0x999999;
+  addShine() { // Phong
+    this.material.specular = 0x999999;
     this.material.shininess = 100;
+  }
+
+  addMetalness() { // Standard
+    this.material.roughness = 0.5;
+    this.material.metalness = 0.5;
   }
 
   /**
