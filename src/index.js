@@ -29,6 +29,8 @@ const shapeDetails = {
 };
 const model = new ShapeCreator(shapeDetails.model).shape; // Creating a shape
 const ground = new ShapeCreator(shapeDetails.ground).shape;
+const dist = -1000;
+
 
 // Camera
 camera.position.y = 160;
@@ -45,15 +47,34 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // Model
-model.position.z = -1000;
+model.position.z = dist;
 model.position.x = -100;
 scene.add(model);
-camera.lookAt(model.position);
+// camera.lookAt(model.position);
 
 // Ground
 ground.rotation.x = -90 * Math.PI / 180;
 ground.position.y = -150;
-scene.add(ground);
+// scene.add(ground);
+
+
+function isObjectVisible(cam, obj) {
+  cam.updateMatrix(); // make sure camera's local matrix is updated
+  cam.updateMatrixWorld(); // make sure camera's world matrix is updated
+  cam.matrixWorldInverse.getInverse(cam.matrixWorld);
+
+  obj.updateMatrix(); // make sure plane's local matrix is updated
+  obj.updateMatrixWorld(); // make sure plane's world matrix is updated
+
+  const frustum = new THREE.Frustum();
+  frustum.setFromMatrix(new THREE.Matrix4()
+    .multiplyMatrices(cam.projectionMatrix, cam.matrixWorldInverse));
+  return frustum.intersectsObject(obj);
+}
+
+
+console.log(isObjectVisible(camera, model));
+
 
 // Rendering the scene
 function render() {
