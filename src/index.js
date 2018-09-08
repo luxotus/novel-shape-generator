@@ -24,7 +24,7 @@ const shapeDetails = {
   ground: {
     type: 'Plane',
     geometry: [10000, 10000, 100, 100],
-    materialCreator: new MaterialCreator(false, { color: 0xF3FFE2 }, 'Phong'),
+    materialCreator: new MaterialCreator(false, { color: 0xF3FFE2 }, 'Lambert'),
   },
 };
 const model = new ShapeCreator(shapeDetails.model).shape; // Creating a shape

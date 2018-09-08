@@ -69,6 +69,12 @@ export default class MaterialCreator {
     }
   }
 
+  addNormalMap() {
+    if (typeof this.material.normal !== 'undefined') {
+      this.material.normalMap = new THREE.TextureLoader().load(this.material.normal);
+    }
+  }
+
   addShine() {
     this.specular = 0x999999;
     this.material.shininess = 100;
