@@ -21,6 +21,11 @@ const threeHelper = {
       .multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
     return frustum.intersectsObject(model);
   },
+  /**
+   * Generates a set of new positions, while keeping it visible
+   * @param {obj} ground
+   */
+  randomModelPositioning: () => {},
 };
 
 export default threeHelper;
