@@ -58,8 +58,7 @@ ground.rotation.x = -90 * Math.PI / 180;
 ground.position.y = -150;
 scene.add(ground);
 
-console.log(threeHelper.isObjectVisible(camera, model));
-
+console.log(threeHelper.isModelVisible(camera, model));
 
 // Rendering the scene
 function render() {
