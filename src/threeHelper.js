@@ -25,7 +25,20 @@ const threeHelper = {
    * Generates a set of new positions, while keeping it visible
    * @param {obj} ground
    */
-  randomModelPositioning: () => {},
+  randomModelPositioning: (ground) => {
+    const max = {
+      x: ground.geometry.parameters.width / 2 + ground.position.x,
+      y: 1000,
+      z: ground.geometry.parameters.height / 2 + ground.position.z,
+    }; console.log(max);
+    const newPos = {
+      x: Math.floor(Math.random() * (max.x + max.x)) - max.x,
+      y: Math.floor(Math.random() * (max.y - ground.position.y)) + ground.position.y,
+      z: Math.floor(Math.random() * (max.z + max.z)) - max.z,
+    }; console.log(newPos);
+
+    return newPos;
+  },
 };
 
 export default threeHelper;

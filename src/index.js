@@ -24,7 +24,7 @@ const shapeDetails = {
   },
   ground: {
     type: 'Plane',
-    geometry: [10000, 10000, 100, 100],
+    geometry: [1000, 1000, 100, 100],
     materialCreator: new MaterialCreator(false, { color: 0xF3FFE2 }, 'Lambert'),
   },
 };
@@ -50,15 +50,18 @@ document.body.appendChild(renderer.domElement);
 // Model
 model.position.z = dist;
 model.position.x = -100;
+model.position.y = 0;
 scene.add(model);
-camera.lookAt(model.position);
+// camera.lookAt(model.position);
 
 // Ground
 ground.rotation.x = -90 * Math.PI / 180;
-ground.position.y = -150;
+ground.position.z = dist;
 scene.add(ground);
 
-console.log(threeHelper.isModelVisible(camera, model));
+// console.log(ground);
+// console.log(threeHelper.isModelVisible(camera, model));
+threeHelper.randomModelPositioning(ground);
 
 // Rendering the scene
 function render() {
