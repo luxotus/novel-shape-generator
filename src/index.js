@@ -31,6 +31,7 @@ const shapeDetails = {
 const model = new ShapeCreator(shapeDetails.model).shape; // Creating a shape
 const ground = new ShapeCreator(shapeDetails.ground).shape;
 const dist = -1000;
+let newPositions = {};
 
 
 // Camera
@@ -47,21 +48,25 @@ scene.add(ambientLight);
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// Model
-model.position.z = dist;
-model.position.x = -100;
-model.position.y = 0;
-scene.add(model);
-// camera.lookAt(model.position);
-
 // Ground
 ground.rotation.x = -90 * Math.PI / 180;
 ground.position.z = dist;
 scene.add(ground);
 
-// console.log(ground);
-// console.log(threeHelper.isModelVisible(camera, model));
-threeHelper.randomModelPositioning(ground);
+// Model
+newPositions = threeHelper.randomModelPositioning(ground, camera);
+model.position.z = newPositions.z;
+model.position.x = newPositions.x;
+model.position.y = newPositions.y;
+
+while (!threeHelper.isModelVisible(camera, model)) {
+  newPositions = threeHelper.randomModelPositioning(ground, camera);
+  model.position.z = newPositions.z;
+  model.position.x = newPositions.x;
+  model.position.y = newPositions.y;
+}
+scene.add(model);
+// camera.lookAt(model.position);
 
 // Rendering the scene
 function render() {

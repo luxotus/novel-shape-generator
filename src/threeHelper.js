@@ -23,19 +23,21 @@ const threeHelper = {
   },
   /**
    * Generates a set of new positions, while keeping it visible
+   * For now this is accurate as I can get it, will have to revisit in the future.
+   * Use with isModelVisible() to get model that is visible but this will help
+   * Est a boundary that limits the number of potential positions.
    * @param {obj} ground
    */
-  randomModelPositioning: (ground) => {
-    const max = {
-      x: ground.geometry.parameters.width / 2 + ground.position.x,
-      y: 1000,
-      z: ground.geometry.parameters.height / 2 + ground.position.z,
-    }; console.log(max);
+  randomModelPositioning: (ground, camera) => {
+    const dist = ground.position.z;
+    const vFOV = THREE.Math.degToRad(camera.fov); // convert vertical fov to radians
+    const visibleHeight = 2 * Math.tan(vFOV / 2) * Math.abs(dist); // visible height
+    const visibleWidth = visibleHeight * camera.aspect; // visible width
     const newPos = {
-      x: Math.floor(Math.random() * (max.x + max.x)) - max.x,
-      y: Math.floor(Math.random() * (max.y - ground.position.y)) + ground.position.y,
-      z: Math.floor(Math.random() * (max.z + max.z)) - max.z,
-    }; console.log(newPos);
+      x: Math.floor(Math.random() * (visibleWidth + visibleWidth)) - visibleWidth,
+      y: Math.floor(Math.random() * (visibleHeight + visibleHeight)) - visibleHeight,
+      z: Math.floor(Math.random() * (dist + camera.position.z)) - camera.position.z,
+    };
 
     return newPos;
   },
