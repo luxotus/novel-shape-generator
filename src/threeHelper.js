@@ -28,16 +28,36 @@ const threeHelper = {
    * Est a boundary that limits the number of potential positions.
    * @param {obj} ground
    */
-  randomModelPositioning: (ground, camera) => {
-    const dist = ground.position.z;
-    const vFOV = THREE.Math.degToRad(camera.fov); // convert vertical fov to radians
-    const visibleHeight = 2 * Math.tan(vFOV / 2) * Math.abs(dist); // visible height
-    const visibleWidth = visibleHeight * camera.aspect; // visible width
-    const newPos = {
-      x: Math.floor(Math.random() * (visibleWidth + visibleWidth)) - visibleWidth,
-      y: Math.floor(Math.random() * (visibleHeight + visibleHeight)) - visibleHeight,
-      z: Math.floor(Math.random() * (dist + camera.position.z)) - camera.position.z,
+  randomModelPositioning: (ground) => {
+    const max = {
+      x: (ground.geometry.parameters.width / 2 + Math.abs(ground.position.x)),
+      y: 100,
+      z: (ground.geometry.parameters.height / 2 + Math.abs(ground.position.z)),
     };
+    const min = {
+      x: ground.geometry.parameters.width - Math.abs(ground.position.x),
+      y: ground.position.y,
+      z: ground.geometry.parameters.height - Math.abs(ground.position.z),
+    };
+
+    if (ground.position.x !== 0) {
+      max.x *= (ground.position.x / Math.abs(ground.position.x));
+    }
+
+    if (ground.position.z !== 0) {
+      max.z *= (ground.position.z / Math.abs(ground.position.z));
+    }
+
+    console.log(min);
+    console.log(max);
+
+    const newPos = {
+      x: Math.floor(Math.random() * (max.x + max.x)) - max.x,
+      y: Math.floor(Math.random() * (max.y - ground.position.y)) + ground.position.y,
+      z: Math.floor(Math.random() * (max.z - min.z)) + min.z,
+    };
+
+    console.log(newPos);
 
     return newPos;
   },

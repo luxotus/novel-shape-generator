@@ -59,12 +59,11 @@ model.position.z = newPositions.z;
 model.position.x = newPositions.x;
 model.position.y = newPositions.y;
 
-while (!threeHelper.isModelVisible(camera, model)) {
-  newPositions = threeHelper.randomModelPositioning(ground, camera);
-  model.position.z = newPositions.z;
-  model.position.x = newPositions.x;
-  model.position.y = newPositions.y;
+if (!threeHelper.isModelVisible(camera, model)) {
+  console.log('model out of view');
+  console.table(model.position);
 }
+
 scene.add(model);
 // camera.lookAt(model.position);
 
