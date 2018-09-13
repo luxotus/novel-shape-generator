@@ -22,10 +22,7 @@ const threeHelper = {
     return frustum.intersectsObject(model);
   },
   /**
-   * Generates a set of new positions, while keeping it visible
-   * For now this is accurate as I can get it, will have to revisit in the future.
-   * Use with isModelVisible() to get model that is visible but this will help
-   * Est a boundary that limits the number of potential positions.
+   * Generates a set of new positions based on a ground plane
    * @param {obj} ground
    */
   randomModelPositioning: (ground) => {
