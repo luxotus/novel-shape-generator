@@ -2,7 +2,6 @@
 /* global THREE */
 import ShapeCreator from './shape-creator';
 import MaterialCreator from './material-creator';
-import threeHelper from './threeHelper';
 
 const scene = new THREE.Scene();
 const clock = new THREE.Clock();
@@ -24,19 +23,18 @@ const shapeDetails = {
   },
   ground: {
     type: 'Plane',
-    geometry: [1000, 1000, 100, 100],
+    geometry: [10000, 10000, 100, 100],
     materialCreator: new MaterialCreator(false, { color: 0xF3FFE2 }, 'Lambert'),
   },
 };
 const model = new ShapeCreator(shapeDetails.model).shape; // Creating a shape
 const ground = new ShapeCreator(shapeDetails.ground).shape;
 const dist = -1000;
-let newPositions = {};
 
 
 // Camera
 camera.position.y = 160;
-camera.position.z = 400;
+// camera.position.z = 400;
 scene.add(camera);
 
 // Lighting
@@ -54,18 +52,11 @@ ground.position.z = dist;
 scene.add(ground);
 
 // Model
-newPositions = threeHelper.randomModelPositioning(ground, camera);
-model.position.z = newPositions.z;
-model.position.x = newPositions.x;
-model.position.y = newPositions.y;
-
-if (!threeHelper.isModelVisible(camera, model)) {
-  console.log('model out of view');
-  console.table(model.position);
-}
+model.position.z = dist;
+model.position.y = 160;
 
 scene.add(model);
-// camera.lookAt(model.position);
+camera.lookAt(model.position);
 
 // Rendering the scene
 function render() {

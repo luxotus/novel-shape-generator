@@ -31,7 +31,7 @@ const threeHelper = {
   randomModelPositioning: (ground) => {
     const max = {
       x: (ground.geometry.parameters.width / 2 + Math.abs(ground.position.x)),
-      y: 100,
+      y: 300,
       z: (ground.geometry.parameters.height / 2 + Math.abs(ground.position.z)),
     };
     const min = {
@@ -48,16 +48,11 @@ const threeHelper = {
       max.z *= (ground.position.z / Math.abs(ground.position.z));
     }
 
-    console.log(min);
-    console.log(max);
-
     const newPos = {
       x: Math.floor(Math.random() * (max.x + max.x)) - max.x,
       y: Math.floor(Math.random() * (max.y - ground.position.y)) + ground.position.y,
       z: Math.floor(Math.random() * (max.z - min.z)) + min.z,
     };
-
-    console.log(newPos);
 
     return newPos;
   },
