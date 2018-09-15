@@ -32,6 +32,8 @@ const model = new ShapeCreator(shapeDetails.model).shape; // Creating a shape
 const ground = new ShapeCreator(shapeDetails.ground).shape;
 const dist = -1000;
 
+// Scene Details
+scene.background = new THREE.Color(0x444c55);
 
 // Camera
 camera.position.x = 480;
