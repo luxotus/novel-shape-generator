@@ -7,6 +7,7 @@ const scene = new THREE.Scene();
 const clock = new THREE.Clock();
 const aspectRatio = window.innerWidth / window.innerHeight;
 const camera = new THREE.PerspectiveCamera(35, aspectRatio, 300, 10000);
+const controls = new THREE.OrbitControls(camera);
 const pointLight = new THREE.PointLight(0xFFFFFF, 0.5);
 const ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.5);
 const renderer = new THREE.WebGLRenderer();
@@ -33,8 +34,10 @@ const dist = -1000;
 
 
 // Camera
-camera.position.y = 160;
-// camera.position.z = 400;
+camera.position.x = 480;
+camera.position.y = 1162;
+camera.position.z = 3211;
+
 scene.add(camera);
 
 // Lighting
@@ -56,7 +59,8 @@ model.position.z = dist;
 model.position.y = 160;
 
 scene.add(model);
-camera.lookAt(model.position);
+// camera.lookAt(model.position);
+controls.update();
 
 // Rendering the scene
 function render() {
@@ -64,6 +68,8 @@ function render() {
   model.rotation.x -= 0.02;
   model.rotation.y -= clock.getDelta();
   model.rotation.z += 0.02;
+  controls.update();
+  // console.log(`(${camera.position.x}, ${camera.position.y}, ${camera.position.z})`);
   renderer.render(scene, camera);
 }
 
